@@ -7,11 +7,24 @@
     "tf": "bin/tf"
   },
   "scripts": {
-    "test": "echo \"Error: Not Implemented\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
-    "node", "tasks", "task", "warrior", "cli"
+    "node",
+    "tasks",
+    "task",
+    "warrior",
+    "cli"
   ],
   "author": "Zach <zachjallen@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "clear": "^0.1.0",
+    "figlet": "^1.4.0",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "jest": "^25.5.3"
+  }
 }
