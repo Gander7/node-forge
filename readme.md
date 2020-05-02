@@ -6,6 +6,9 @@
 <a href='https://coveralls.io/github/Gander7/task-forge?branch=master'>
 <img src='https://coveralls.io/repos/github/Gander7/task-forge/badge.svg?branch=master' alt='Coverage Status' /></a>
 
+<a href='https://github.com/Gander7/task-forge/blob/master/LICENSE'>
+<img alt="GitHub" src="https://img.shields.io/github/license/Gander7/task-forge"></a>
+
 </p>
 
 ```
