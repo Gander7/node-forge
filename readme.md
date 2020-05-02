@@ -11,16 +11,36 @@
 
 ---
 
-A task/project managerment CLI tool
+<h2 align="center">A task/project managerment CLI tool</h2>
+<p align="center">
+Explore the Docs · Report Bug · Request Feature
+</p>
 
-// TODO: Expore the docs >>
+// TODO: Explore the docs
+// TODO: Report Bug
+// TODO: Requrest Feature
 
-// TODO: Demo : Bug Report : Request Feature
+## About
 
-// TODO: Readme with:
+Project is in an infantile state, you may see todos within the project but
+I will be using Task Forge for it's own todos once it's in a stable enough state. :)
 
-- About (Why)
-- Getting Started (Prereq, Install, Usage)
-- Roadmap
-- Contributing
-- Acknowledgements/Inspriation
+## Getting Started
+
+// TODO: Readme, Getting Started
+
+## Installation
+
+// TODO: Readme, Install
+
+## Contributing
+
+// TODO: REadme, Contributing
+
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+## Acknowledgements/Inspiration
+
+// TODO: Readme, Ack/Insp
