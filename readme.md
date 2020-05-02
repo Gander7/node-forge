@@ -1,7 +1,10 @@
 <p align="center">
-<img alt="Travis (.org) branch" src="https://img.shields.io/travis/Gander7/task-forge/master">
 
-<img src='https://coveralls.io/repos/github/Gander7/task-forge/badge.svg?branch=master' alt='Coverage Status' />
+<a href="https://travis-ci.org/Gander7/task-forge.svg?branch=master">
+<img alt="Travis (.org) branch" src="https://img.shields.io/travis/Gander7/task-forge/master"></a>
+
+<a href='https://coveralls.io/github/Gander7/task-forge?branch=master'>
+<img src='https://coveralls.io/repos/github/Gander7/task-forge/badge.svg?branch=master' alt='Coverage Status' /></a>
 
 </p>
 
