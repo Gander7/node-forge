@@ -35,7 +35,7 @@ I will be using Task Forge for it's own todos once it's in a stable enough state
 
 ## Contributing
 
-// TODO: REadme, Contributing
+// TODO: Readme, Contributing
 
 ## License
 
@@ -43,4 +43,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Acknowledgements/Inspiration
 
-// TODO: Readme, Ack/Insp
+- Readme inspired by [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
+
+  // TODO: Readme, Ack/Insp
