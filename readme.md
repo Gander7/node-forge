@@ -1,12 +1,18 @@
+<p align="center">
+<img alt="Travis (.org) branch" src="https://img.shields.io/travis/Gander7/task-forge/master">
+
+<img alt="Codecov" src="https://img.shields.io/codecov/c/github/Gander7/task-forge?token=9de28419-9dd8-4b08-810c-e73b6cf1c162">
+</p>
+
 ```
- _____              _     ______
-|_   _|            | |    |  ___|
-  | |    __ _  ___ | | __ | |_     ___   _ __   __ _   ___
-  | |   / _` |/ __|| |/ / |  _|   / _ \ | '__| / _` | / _ \
-  | |  | (_| |\__ \|   <  | |    | (_) || |   | (_| ||  __/
-  \_/   \__,_||___/|_|\_\ \_|     \___/ |_|    \__, | \___|
-                                                __/ |
-                                               |___/
+                       _____              _     ______
+                      |_   _|            | |    |  ___|
+                        | |    __ _  ___ | | __ | |_     ___   _ __   __ _   ___
+                        | |   / _` |/ __|| |/ / |  _|   / _ \ | '__| / _` | / _ \
+                        | |  | (_| |\__ \|   <  | |    | (_) || |   | (_| ||  __/
+                        \_/   \__,_||___/|_|\_\ \_|     \___/ |_|    \__, | \___|
+                                                                      __/ |
+                                                                     |___/
 ```
 
 ---
@@ -46,3 +52,11 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - Readme inspired by [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
 
   // TODO: Readme, Ack/Insp
+
+## Crazy Future Feature Thoughts/Backlog
+
+- Add [Shields](https://shields.io/) as we go
+- Implementation of [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3/issues/262)
+- Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
+- Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
+- Priority+Backlog, inspired from [Scrum]
