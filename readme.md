@@ -1,7 +1,8 @@
 <p align="center">
 <img alt="Travis (.org) branch" src="https://img.shields.io/travis/Gander7/task-forge/master">
 
-<img alt="Codecov" src="https://img.shields.io/codecov/c/github/Gander7/task-forge?token=9de28419-9dd8-4b08-810c-e73b6cf1c162">
+<img src='https://coveralls.io/repos/github/Gander7/task-forge/badge.svg?branch=master' alt='Coverage Status' />
+
 </p>
 
 ```
@@ -22,9 +23,11 @@
 Explore the Docs · Report Bug · Request Feature
 </p>
 
-// TODO: Explore the docs
-// TODO: Report Bug
-// TODO: Requrest Feature
+// TODO: Readme Links for
+
+- Explore the docs,
+- Report Bug(ISsue with Template),
+- Request Feature(Issue with template)
 
 ## About
 
@@ -33,15 +36,37 @@ I will be using Task Forge for it's own todos once it's in a stable enough state
 
 ## Getting Started
 
-// TODO: Readme, Getting Started
+### Prerequisites
 
-## Installation
+- Node/NPM
+
+### Installation
 
 // TODO: Readme, Install
 
+## Usage
+
+### Simple
+
+// TODO: Simple Usage Example
+
+### Documentation
+
+// TODO: Documentation
+
+## Roadmap
+
+- Basic Task Crud
+- Add [Shields](https://shields.io/) as we go
+- Implementation of [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3/issues/262)
+- Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
+- Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
+- Priority+Backlog, inspired from [Scrum]
+
 ## Contributing
 
-// TODO: Readme, Contributing
+Contributing is greatly appreciated.
+Please see `CONTRIBUTING` for more information.
 
 ## License
 
@@ -50,13 +75,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## Acknowledgements/Inspiration
 
 - Readme inspired by [Best-README-Template](https://github.com/othneildrew/Best-README-Template/blob/master/README.md)
-
-  // TODO: Readme, Ack/Insp
-
-## Crazy Future Feature Thoughts/Backlog
-
-- Add [Shields](https://shields.io/) as we go
-- Implementation of [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3/issues/262)
-- Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
-- Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
-- Priority+Backlog, inspired from [Scrum]
+- Commands inspired by [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
