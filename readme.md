@@ -11,29 +11,22 @@
 
 </p>
 
-```
-                                 _____              _     ______
-                                |_   _|            | |    |  ___|
-                                  | |    __ _  ___ | | __ | |_     ___   _ __   __ _   ___
-                                  | |   / _` |/ __|| |/ / |  _|   / _ \ | '__| / _` | / _ \
-                                  | |  | (_| |\__ \|   <  | |    | (_) || |   | (_| ||  __/
-                                  \_/   \__,_||___/|_|\_\ \_|     \___/ |_|    \__, | \___|
-                                                                                __/ |
-                                                                               |___/
-```
-
----
-
-<h2 align="center">A task/project managerment CLI tool</h2>
+<br/>
 <p align="center">
-Explore the Docs · Report Bug · Request Feature
+  <a href="https://github.com/Gander7/task-forge" margin="0">
+    <img src="res/logo.png" alt="Logo" width="150" height="150">
+  </a>
+
+  <h3 align="center">A task/project management CLI tool</h3>
+  
+  <p align="center">
+      <a href="#">Explore the Docs</a>
+      ·
+      <a href="https://github.com/Gander7/task-forge/issues">Report Bug</a>
+      ·
+      <a href="https://github.com/Gander7/task-forge/issues">Request Feature</a>
+  </p>
 </p>
-
-// TODO: Readme Links for
-
-- Explore the docs,
-- Report Bug(ISsue with Template),
-- Request Feature(Issue with template)
 
 ## About
 
