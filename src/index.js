@@ -14,8 +14,7 @@ module.exports = () => {
     case 'a':
     case 'add':
       const taskArgs = args._.slice(1)
-      const task = require('./cmds/add')(taskArgs)
-      console.log(task)
+      require('./cmds/add')(taskArgs)
       break
     case 'version':
       require('./cmds/version')()

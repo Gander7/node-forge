@@ -13,6 +13,6 @@ describe('Version Command', () => {
 
   test(`version output contains number from package`, () => {
     cmd()
-    expect(clgOutput[0]).toEqual(expect.stringContaining(version))
+    expect(clgOutput).toContainEqual(expect.stringContaining(version))
   })
 })

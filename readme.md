@@ -25,6 +25,7 @@
       <a href="https://github.com/Gander7/task-forge/issues">Report Bug</a>
       ·
       <a href="https://github.com/Gander7/task-forge/issues">Request Feature</a>
+
   </p>
 </p>
 
