@@ -1,6 +1,6 @@
 {
-  "name": "task-forge",
-  "version": "1.0.0",
+  "name": "node-task-forge",
+  "version": "0.0.1",
   "description": "task/prj management",
   "main": "src/index.js",
   "bin": {
