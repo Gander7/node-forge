@@ -1,9 +1,5 @@
 const db = require('../../src/lib/db')
 
-exports.cleanTable = (tableName) => {
-  db.prepare(`delete from ${tableName}`).run()
-}
-
 exports.cleanDb = () => {
   try {
     db.prepare(`delete from tasks`).run()
