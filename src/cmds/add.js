@@ -1,10 +1,13 @@
-const { insert } = require('../lib/insert')
+const Data = require('../data/db')
 
-function add(args) {
+function add(args, mockDb) {
   const newTask = {
     desc: args.join(' '),
   }
-  const info = insert(newTask)
+
+  const db = mockDb ? mockDb : new Data()
+  const info = db.insert(newTask)
+
   if (info) console.log(`Task ${info.lastInsertRowid} inserted.`)
 }
 

@@ -1,18 +1,46 @@
 const fs = require('fs')
-const { dbPath, dbName } = require('../src/lib/settings')
+const Data = require('../src/data/db')
+const Database = require('better-sqlite3')
 
-const dbLocation = `${dbPath}/${dbName}.db`
-const output = { log: [] }
-const logger = (info) => output.log.push(info)
+const output = {
+  log: [],
+  error: [],
+}
+
+const mockedLog = (info) => output.log.push(info)
+const mockedError = (info) => output.error.push(info)
 
 beforeEach(() => {
   output.log = []
-  console.log = logger
+  output.error = []
+  console.log = mockedLog
+  console.error = mockedError
 })
+
 describe('DB', () => {
-  test('db can be created', () => {
-    fs.unlinkSync(dbLocation)
-    require('../src/lib/db')
+  test('schema executes on empty database', () => {
+    const sqlite = new Database(':memory')
+
+    jest.spyOn(sqlite, 'prepare').mockImplementation(() => {
+      return {
+        get: () => undefined,
+      }
+    })
+    jest.spyOn(sqlite, 'exec').mockImplementation(() => {})
+
+    const db = new Data(sqlite)
+
+    expect(output.log.length).toEqual(2)
+    expect(output.log).toContainEqual(expect.stringContaining('WARNING'))
+    expect(output.log).toContainEqual(expect.stringContaining('database initialized'))
+  })
+
+  test("directory is created if it doesn't exist", () => {
+    jest.spyOn(fs, 'existsSync').mockImplementation(() => false)
+    jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {})
+
+    new Data(new Database(':memory:'), fs)
+
     expect(output.log.length).toEqual(2)
     expect(output.log).toContainEqual(expect.stringContaining('WARNING'))
     expect(output.log).toContainEqual(expect.stringContaining('database initialized'))

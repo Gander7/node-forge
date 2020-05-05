@@ -1,7 +1,7 @@
 const add = require('../src/cmds/add')
 const list = require('../src/cmds/list')
-const db = require('../src/lib/db')
 const { cleanDb } = require('./helpers/util')
+const Data = require('../src/data/db')
 
 const output = {
   log: [],
@@ -30,17 +30,23 @@ describe('List Command', () => {
   })
 
   test('Nothing to output', () => {
-    list()
+    const db = new Data()
+    const spy = jest.spyOn(db, 'getAll')
+    spy.mockImplementation(() => [])
+
+    list(db)
+
     expect(output.log.length).toEqual(1)
     expect(output.log[0]).toEqual('No outstanding tasks found.')
   })
 
-  test('list tasks error', () => {
-    const spy = jest.spyOn(db, 'prepare')
-    spy.mockImplementation(() => {
-      throw new Error()
-    })
-    list()
-    expect(output.error.length).toEqual(2)
+  test('list tasks erro', () => {
+    const db = new Data()
+    const spy = jest.spyOn(db, 'getAll')
+    spy.mockImplementation(() => {})
+
+    list(db)
+
+    expect(output.log.length).toEqual(0)
   })
 })

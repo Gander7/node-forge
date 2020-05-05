@@ -1,9 +1,10 @@
+const Data = require('../data/db')
 const asTable = require('as-table')
-const list = require('../lib/list')
 
-module.exports = () => {
-  const data = list()
+module.exports = (mockDb) => {
+  const db = mockDb ? mockDb : new Data()
+  const data = db.getAll()
 
-  if (data && data.length > 0) console.log(asTable(list()))
+  if (data && data.length > 0) console.log(asTable(data))
   else if (data) console.log('No outstanding tasks found.')
 }

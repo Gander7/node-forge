@@ -1,5 +1,5 @@
 const add = require('../src/cmds/add')
-const db = require('../src/lib/db')
+const Data = require('../src/data/db')
 const { cleanDb } = require('./helpers/util')
 
 const output = {
@@ -21,17 +21,18 @@ beforeEach(() => {
 describe('Add Command', () => {
   test('new task is returned', () => {
     add(['test', 'add', '1'])
+
     expect(output.log.length).toEqual(1)
     expect(output.log).toContainEqual(expect.stringContaining('Task 1 inserted.'))
   })
 
   test('new task error', () => {
-    const spy = jest.spyOn(db, 'prepare')
-    spy.mockImplementation(() => {
-      throw new Error()
-    })
-    add(['test', 'add', '1'])
+    const db = new Data()
+    const spy = jest.spyOn(db, 'insert')
+    spy.mockImplementation(() => {})
+
+    add(['test', 'add', '1'], db)
+
     expect(output.log.length).toEqual(0)
-    expect(output.error.length).toEqual(2)
   })
 })

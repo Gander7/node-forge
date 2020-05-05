@@ -1,12 +1,8 @@
-const db = require('../../src/lib/db')
+const Data = require('../../src/data/db')
 
 exports.cleanDb = () => {
-  try {
-    db.prepare(`delete from tasks`).run()
-    db.prepare(`delete from projects`).run()
-    db.prepare(`delete from timelog`).run()
-  } catch (e) {
-    console.error('ERROR')
-    console.error(e)
-  }
+  const db = new Data()
+  db.cleanTable('tasks')
+  db.cleanTable('projects')
+  db.cleanTable('timelog')
 }
