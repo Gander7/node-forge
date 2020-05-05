@@ -5,7 +5,7 @@ function add(args) {
     desc: args.join(' '),
   }
   const info = insert(newTask)
-  console.log(`Task ${info.lastInsertRowid} inserted.`)
+  if (info) console.log(`Task ${info.lastInsertRowid} inserted.`)
 }
 
 module.exports = add
