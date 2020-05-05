@@ -2,26 +2,31 @@ const add = require('../src/cmds/add')
 const list = require('../src/cmds/list')
 const { cleanDb } = require('./helpers/util')
 
+let clgOutput = []
+const originalLog = () => {}
+const mockedLog = (output) => clgOutput.push(output)
+
 beforeEach(() => {
   cleanDb()
-  add(['test', 'add', '1'])
-  add(['test', 'add', '2'])
   clgOutput = []
+  console.log = mockedLog
 })
 
+afterEach(() => (console.log = originalLog))
+
 describe('List Command', () => {
-  // store and reset original output
-  const originalLog = () => {}
-  afterEach(() => (console.log = originalLog))
+  test('basic list', () => {
+    add(['test', 'add', '1'])
+    add(['test', 'add', '2'])
+    list()
+    expect(clgOutput.length).toEqual(3)
+    expect(clgOutput[2]).toEqual(expect.stringContaining('test add 1'))
+    expect(clgOutput[2]).toEqual(expect.stringContaining('test add 2'))
+  })
 
-  let clgOutput = []
-  const mockedLog = (output) => clgOutput.push(output)
-  beforeEach(() => (console.log = mockedLog))
-
-  test('list', () => {
+  test('Nothing to output', () => {
     list()
     expect(clgOutput.length).toEqual(1)
-    expect(clgOutput[0]).toEqual(expect.stringContaining('test add 1'))
-    expect(clgOutput[0]).toEqual(expect.stringContaining('test add 2'))
+    expect(clgOutput[0]).toEqual('No outstanding tasks found.')
   })
 })

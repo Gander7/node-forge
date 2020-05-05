@@ -16,6 +16,11 @@ module.exports = () => {
       const taskArgs = args._.slice(1)
       require('./cmds/add')(taskArgs)
       break
+    case 'd':
+    case 'delete':
+      const id = args._[1]
+      require('./cmds/delete')(id)
+      break
     case 'l':
     case 'list':
       require('./cmds/list')()
