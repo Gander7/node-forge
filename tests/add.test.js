@@ -2,24 +2,23 @@ const add = require('../src/cmds/add')
 const db = require('../src/lib/db')
 const { cleanDb } = require('./helpers/util')
 
+const output = {
+  log: [],
+  error: [],
+}
+
+const mockedLog = (info) => output.log.push(info)
+const mockedError = (info) => output.error.push(info)
+
 beforeEach(() => {
   cleanDb()
+  output.log = []
+  output.error = []
+  console.log = mockedLog
+  console.error = mockedError
 })
 
 describe('Add Command', () => {
-  const output = {
-    log: [],
-    error: [],
-  }
-  const mockedLog = (info) => output.log.push(info)
-  const mockedError = (info) => output.error.push(info)
-  beforeEach(() => {
-    output.log = []
-    output.error = []
-    console.log = mockedLog
-    console.error = mockedError
-  })
-
   test('new task is returned', () => {
     add(['test', 'add', '1'])
     expect(output.log.length).toEqual(1)
