@@ -20,6 +20,7 @@
   "author": "Zach <zachjallen@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "as-table": "^1.0.55",
     "better-sqlite3": "^7.0.1",
     "chalk": "^4.0.0",
     "clear": "^0.1.0",
