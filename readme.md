@@ -42,26 +42,42 @@ I will be using Task Forge for it's own todos once it's in a stable enough state
 
 ### Installation
 
-// TODO: Readme, Install
+There are no official releases at this point, but if you want to play around:
+
+1. Clone repos
+2. Navigate to `bin` folder or add to your path
+3. run the `t` command
 
 ## Usage
 
 ### Simple
 
-// TODO: Simple Usage Example
+#### Add Task
+
+`t a this is a test task` or `t add this is a test task`
+
+#### List Task
+
+`t`
+
+#### Remove Task
+
+When deleting, there is no one letter command option to prevent accidental deletions.
+`t del ID` or `t delete ID`
 
 ### Documentation
 
-// TODO: Documentation
+// TODO: Documentation, once it surpasses simple usage
 
 ## Roadmap
 
-- Basic Task Crud
+- Basic Task Crud + Done
+- Start/Stop timers
+- Task Projects, List projects, filter by projects
+- Priority+Backlog, inspired from [Scrum]
 - Add [Shields](https://shields.io/) as we go
-- Implementation of [better-sqlite3](https://github.com/JoshuaWise/better-sqlite3/issues/262)
 - Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
 - Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
-- Priority+Backlog, inspired from [Scrum]
 
 ## Contributing
 
