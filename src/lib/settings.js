@@ -1,9 +1,7 @@
 const homedir = require('os').homedir()
 
 const dbPath = `${homedir}/.taskforge`
-let dbName = `taskforge`
-
-console.warn(process.env)
+let dbName = process.env.testing ? `task-testing.db` : `taskforge.db`
 
 module.exports = {
   dbPath,

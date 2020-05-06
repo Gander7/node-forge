@@ -8,7 +8,7 @@ class Data {
   constructor(db, mockFs) {
     const files = mockFs ? mockFs : fs
     if (!files.existsSync(dbPath)) files.mkdirSync(dbPath)
-    this.db = db ? db : new Database(`${dbPath}/${dbName}.db`)
+    this.db = db ? db : new Database(`${dbPath}/${dbName}`)
     this.inititialize(schema)
   }
 
