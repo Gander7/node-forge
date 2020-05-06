@@ -71,13 +71,45 @@ When removing, there is no one letter command option to prevent accidental delet
 
 ## Roadmap
 
-- Basic Task Crud + Done
+These do not appear in any given order. They are not prioritized.
+
+- Basic Task Crud
+  - [x] Create
+  - [x] delete
+  - [x] done
+  - [x] delete
+  - [x] list
+  - [] list done
+  - [] read
+  - [] update
+  - [] restore
 - Start/Stop timers
-- Task Projects, List projects, filter by projects
+- Due dates
+- Ready status?
+- tags
+- list (different ways of viewing tasks)
+  - tags
+  - active
+  - blocked
+  - newest
+  - next
+  - oldest
+  - overdue
+  - project/no project
+- reports (aggregate views, that don't contain the basic columns)
+  - tags
+  - recurring templates with next occurence
+  - projects
+  - burndown
+  - timesheet?
+- export/import/backup?
+- notes
 - Priority+Backlog, inspired from [Scrum]
 - Add [Shields](https://shields.io/) as we go
 - Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
 - Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
+- Sprints option/skin/workflow?
+- GTD option/skin/workflow?
 
 ## Contributing
 
