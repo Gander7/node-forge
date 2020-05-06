@@ -1,28 +1,28 @@
 const fs = require('fs')
 const chalk = require('chalk')
 const Database = require('better-sqlite3')
-const { dbPath, dbName } = require('../lib/settings')
+const { dbPath, dbName } = require('../lib/settings')()
 const schema = require('./schema')
 
 class Data {
-  constructor(db, mockFs, logDuringTest) {
+  constructor(db, mockFs, mockLiveLogging) {
     const files = mockFs ? mockFs : fs
-    this.testing = process.env.testing
+    const dbLocation = process.env.testing ? ':memory:' : `${dbPath}/${dbName}`
+
     if (!files.existsSync(dbPath)) files.mkdirSync(dbPath)
-    const dbLocation = this.testing ? ':memory:' : `${dbPath}/${dbName}`
     this.db = db ? db : new Database(dbLocation)
-    this.inititialize(schema, logDuringTest)
+
+    this.inititialize(schema, mockLiveLogging)
   }
 
-  inititialize(schema, logDuringTest) {
-    const row = this.db
-      .prepare(`select 1 from sqlite_master where type='table' and name='tasks';`)
-      .get()
-    if (row === undefined) {
-      if (!this.testing || logDuringTest)
+  inititialize(schema, mockLiveLogging) {
+    const qry = this.db.prepare(`select 1 from sqlite_master where type='table' and name='tasks';`)
+    const stmt = qry.get()
+    if (stmt === undefined) {
+      if (!process.env.testing || mockLiveLogging)
         console.log(chalk.yellow('WARNING: database appears empty; initializing it.'))
       this.db.exec(schema)
-      if (!this.testing || logDuringTest) console.log(chalk.green('database initialized.'))
+      if (!process.env.testing || mockLiveLogging) console.log(chalk.green('database initialized.'))
     }
   }
 

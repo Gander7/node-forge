@@ -1,10 +1,16 @@
-const homedir = require('os').homedir()
+module.exports = (args) => {
+  const homedir = require('os').homedir()
+  const dbPath = `${homedir}/.taskforge`
 
-const dbPath = `${homedir}/.taskforge`
-let dbName = `taskforge.db`
-
-module.exports = {
-  dbPath,
-  dbName,
-  dbOutput: null,
+  if (!process.env.testing || (args && args.mockLive)) {
+    return {
+      dbPath,
+      dbName: 'taskforge.db',
+    }
+  } else {
+    return {
+      dbPath,
+      dbName: ':memory:',
+    }
+  }
 }

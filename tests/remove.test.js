@@ -27,8 +27,7 @@ describe('Remove Command', () => {
   })
 
   test('test to remove not found with no tests', () => {
-    const db = new Data()
-    remove(1, db)
+    remove(1)
     expect(output.log).toContainEqual(expect.stringContaining('Task not found.'))
   })
 
