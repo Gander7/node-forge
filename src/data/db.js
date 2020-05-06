@@ -5,21 +5,24 @@ const { dbPath, dbName } = require('../lib/settings')
 const schema = require('./schema')
 
 class Data {
-  constructor(db, mockFs) {
+  constructor(db, mockFs, logDuringTest) {
     const files = mockFs ? mockFs : fs
+    this.testing = process.env.testing
     if (!files.existsSync(dbPath)) files.mkdirSync(dbPath)
-    this.db = db ? db : new Database(`${dbPath}/${dbName}`)
-    this.inititialize(schema)
+    const dbLocation = this.testing ? ':memory:' : `${dbPath}/${dbName}`
+    this.db = db ? db : new Database(dbLocation)
+    this.inititialize(schema, logDuringTest)
   }
 
-  inititialize(schema) {
+  inititialize(schema, logDuringTest) {
     const row = this.db
       .prepare(`select 1 from sqlite_master where type='table' and name='tasks';`)
       .get()
     if (row === undefined) {
-      console.log(chalk.yellow('WARNING: database appears empty; initializing it.'))
+      if (!this.testing || logDuringTest)
+        console.log(chalk.yellow('WARNING: database appears empty; initializing it.'))
       this.db.exec(schema)
-      console.log(chalk.green('database initialized.'))
+      if (!this.testing || logDuringTest) console.log(chalk.green('database initialized.'))
     }
   }
 
@@ -73,13 +76,7 @@ class Data {
     })
     run()
 
-    return task.id
-  }
-
-  cleanTable(tableName) {
-    const qry = `delete from ${tableName}`
-    const stmt = this.db.prepare(qry)
-    return stmt.run()
+    return task ? task.id : undefined
   }
 }
 

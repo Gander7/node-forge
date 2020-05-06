@@ -28,7 +28,7 @@ describe('DB', () => {
     })
     jest.spyOn(sqlite, 'exec').mockImplementation(() => {})
 
-    const db = new Data(sqlite)
+    new Data(sqlite, undefined, true)
 
     expect(output.log.length).toEqual(2)
     expect(output.log).toContainEqual(expect.stringContaining('WARNING'))
@@ -39,7 +39,7 @@ describe('DB', () => {
     jest.spyOn(fs, 'existsSync').mockImplementation(() => false)
     jest.spyOn(fs, 'mkdirSync').mockImplementation(() => {})
 
-    new Data(new Database(':memory:'), fs)
+    new Data(new Database(':memory:'), fs, true)
 
     expect(output.log.length).toEqual(2)
     expect(output.log).toContainEqual(expect.stringContaining('WARNING'))

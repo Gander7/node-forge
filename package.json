@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "watch-test": "jest --watch",
     "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
   },
   "keywords": [

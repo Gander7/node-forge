@@ -1,7 +1,7 @@
 const Data = require('../data/db')
 const asTable = require('as-table')
 
-module.exports = (mockDb) => {
+module.exports = (args, mockDb) => {
   const db = mockDb ? mockDb : new Data()
   const data = db.getAll()
 
