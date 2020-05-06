@@ -19,12 +19,12 @@ beforeEach(() => {
   console.error = mockedError
 })
 
-describe('Delete Command', () => {
+describe('Remove Command', () => {
   // store and reset original output
   test('task is removed', () => {
     add(['test', 'add', '1'])
     remove(1)
-    expect(output.log).toContainEqual(expect.stringContaining('Task 1 deleted.'))
+    expect(output.log).toContainEqual(expect.stringContaining('Task 1 removed.'))
   })
 
   test('test to remove not found with no tests', () => {
@@ -40,21 +40,11 @@ describe('Delete Command', () => {
 
   test('remove task error', () => {
     const db = new Data()
-    const spy = jest.spyOn(db, 'delete')
+    const spy = jest.spyOn(db, 'remove')
     spy.mockImplementation(() => undefined)
 
     remove(1, db)
 
     expect(output.log.length).toEqual(0)
   })
-  // test('delete task error', () => {
-  //   add(['test', 'add', '1'])
-  //   const spy = jest.spyOn(db, 'prepare')
-  //   spy.mockImplementation(() => {
-  //     throw new Error()
-  //   })
-  //   deleteTask(1)
-  //   expect(output.log.length).toEqual(1) // One for the add
-  //   expect(output.error.length).toEqual(2)
-  // })
 })

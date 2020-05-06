@@ -4,7 +4,6 @@ const minimist = require('minimist')
 
 module.exports = () => {
   const args = minimist(process.argv.slice(2))
-  console.log(args)
 
   let cmd = args._[0] || 'list'
   if (args.version || args.v) cmd = 'version'
@@ -16,10 +15,13 @@ module.exports = () => {
       const taskArgs = args._.slice(1)
       require('./cmds/add')(taskArgs)
       break
-    case 'del':
-    case 'delete':
-      const id = args._[1]
-      require('./cmds/remove')(id)
+    case 'rem':
+    case 'remove':
+      require('./cmds/remove')(args._[1])
+      break
+    case 'd':
+    case 'done':
+      require('./cmds/done')(args._[1])
       break
     case 'l':
     case 'list':

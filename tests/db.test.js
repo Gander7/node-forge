@@ -19,7 +19,7 @@ beforeEach(() => {
 
 describe('DB', () => {
   test('schema executes on empty database', () => {
-    const sqlite = new Database(':memory')
+    const sqlite = new Database(':memory:')
 
     jest.spyOn(sqlite, 'prepare').mockImplementation(() => {
       return {

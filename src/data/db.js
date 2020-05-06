@@ -26,10 +26,25 @@ class Data {
   insert(args) {
     const qry = `
         insert into tasks (id, desc)
-        values ((select ifnull(max(id),0) + 1 from tasks), :desc);
+        values ((select max(nextid) + 1 from settings), :desc);
       `
     const stmt = this.db.prepare(qry)
-    return stmt.run(args)
+    const settingsQry = `update settings set nextid = nextid + 1`
+    const settingsStmt = this.db.prepare(settingsQry)
+
+    let retVal
+    this.db.transaction(() => {
+      retVal = stmt.run(args)
+      settingsStmt.run()
+    })()
+
+    return retVal
+  }
+
+  getOne(id) {
+    const qry = `select * from tasks where rowid = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.get(id)
   }
 
   getAll() {
@@ -38,10 +53,27 @@ class Data {
     return stmt.all()
   }
 
-  delete(args) {
+  remove(id) {
     const qry = `delete from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
-    return stmt.run(args)
+    return stmt.run(id)
+  }
+
+  archive(id) {
+    const task = this.getOne(id)
+    const qry = `insert into archivedTasks 
+      (desc, archivedOn, oldTaskId)
+      select desc, datetime('now'), id
+      from tasks where rowid = ?`
+    const archiveStmt = this.db.prepare(qry)
+
+    const run = this.db.transaction(() => {
+      archiveStmt.run(id)
+      this.remove(id)
+    })
+    run()
+
+    return task.id
   }
 
   cleanTable(tableName) {

@@ -46,7 +46,7 @@ There are no official releases at this point, but if you want to play around:
 
 1. Clone repos
 2. Navigate to `bin` folder or add to your path
-3. run the `t` command
+3. run the `tk` command
 
 ## Usage
 
@@ -54,16 +54,16 @@ There are no official releases at this point, but if you want to play around:
 
 #### Add Task
 
-`t a this is a test task` or `t add this is a test task`
+`tk a this is a test task` or `tk add this is a test task`
 
 #### List Task
 
-`t`
+`tk`
 
 #### Remove Task
 
-When deleting, there is no one letter command option to prevent accidental deletions.
-`t del ID` or `t delete ID`
+When removing, there is no one letter command option to prevent accidental deletions.
+`tk rem ID` or `tk remove ID`
 
 ### Documentation
 
