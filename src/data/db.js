@@ -1,18 +1,33 @@
 const fs = require('fs')
 const chalk = require('chalk')
 const Database = require('better-sqlite3')
-const { dbPath, dbName } = require('../lib/settings')()
 const schema = require('./schema')
 
 class Data {
   constructor(db, mockFs, mockLiveLogging) {
     const files = mockFs ? mockFs : fs
-    const dbLocation = process.env.testing ? ':memory:' : `${dbPath}/${dbName}`
+    let { dbPath, dbName, dbFullPath } = this.getPath()
 
-    if (!files.existsSync(dbPath)) files.mkdirSync(dbPath)
-    this.db = db ? db : new Database(dbLocation)
+    if (dbName.includes(':memory:')) {
+      dbFullPath = ':memory:'
+    } else {
+      if (!files.existsSync(dbPath)) {
+        files.mkdirSync(dbFullPath)
+      }
+    }
+
+    this.db = db ? db : new Database(dbFullPath)
 
     this.inititialize(schema, mockLiveLogging)
+  }
+
+  getPath() {
+    const { dbPath, dbName } = require('../lib/settings')()
+    return {
+      dbName,
+      dbPath,
+      dbFullPath: `${dbPath}/${dbName}`,
+    }
   }
 
   inititialize(schema, mockLiveLogging) {
