@@ -81,8 +81,8 @@ These do not appear in any given order. They are not prioritized.
   - [x] list
   - [x] list done
   - [x] read
-  - [] update
-  - [] restore
+  - [x] modify desc
+  - [] restore archived => todo
 - Better Help Menu
 - Start/Stop timers
 - Due dates

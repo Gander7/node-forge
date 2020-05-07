@@ -59,6 +59,12 @@ class Data {
     return retVal
   }
 
+  update(args) {
+    const qry = `update tasks set desc = ? where rowid = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.run(args.desc, args.id)
+  }
+
   getOne(id) {
     const qry = `select rowid, * from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
