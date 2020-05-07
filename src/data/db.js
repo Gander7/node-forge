@@ -71,6 +71,13 @@ class Data {
     return stmt.get(id)
   }
 
+  getOneArchived(id) {
+    const qry = `select rowid, * from archivedTasks where rowid = ?`
+    const stmt = this.db.prepare(qry)
+    const res = stmt.get(id)
+    return stmt.get(id)
+  }
+
   getAll() {
     const qry = `select rowid, desc from tasks`
     const stmt = this.db.prepare(qry)
@@ -104,6 +111,26 @@ class Data {
     run()
 
     return task ? task.id : undefined
+  }
+
+  restore(id) {
+    const qry = `
+      insert into tasks (id, desc)
+      select oldTaskId, desc
+      from archivedTasks where oldTaskId = ?
+    `
+    const stmt = this.db.prepare(qry)
+
+    const removeQry = `delete from archivedTasks where oldTaskId = ?`
+    const removeStmt = this.db.prepare(removeQry)
+
+    let retVal
+    this.db.transaction(() => {
+      retVal = stmt.run(id)
+      removeStmt.run(id)
+    })()
+
+    return retVal
   }
 }
 

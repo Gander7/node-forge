@@ -40,6 +40,10 @@ module.exports = () => {
     case 'done':
       require('./cmds/done')(args._[1])
       break
+    case 'res':
+    case 'restore':
+      require('./cmds/restore')(args._[1])
+      break
     case 'l':
     case 'list':
       const listArgs = {
