@@ -80,7 +80,7 @@ These do not appear in any given order. They are not prioritized.
   - [x] delete
   - [x] list
   - [x] list done
-  - [] read
+  - [x] read
   - [] update
   - [] restore
 - Better Help Menu

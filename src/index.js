@@ -5,16 +5,26 @@ const minimist = require('minimist')
 module.exports = () => {
   const args = minimist(process.argv.slice(2))
 
-  let cmd = args._[0] || 'list'
-  if (args.version || args.v) cmd = 'version'
-  if (args.help || args.h) cmd = 'help'
+  let cmd
+  if (isNaN(args._[0])) {
+    cmd = args._[0] || 'list'
+    if (args.version || args.v) cmd = 'version'
+    if (args.help || args.h) cmd = 'help'
+  } else {
+    cmd = 'view'
+  }
 
   switch (cmd) {
+    case !isNaN(cmd):
+
     case 'a':
     case 'add':
-      const taskArgs = args._.slice(1)
-      require('./cmds/add')(taskArgs)
+      const addArgs = args._.slice(1)
+      require('./cmds/add')(addArgs)
       break
+    case 'view':
+      const viewArgs = { id: parseInt(args._[0]) }
+      require('./cmds/view')(viewArgs)
     case 'rem':
     case 'remove':
       require('./cmds/remove')(args._[1])

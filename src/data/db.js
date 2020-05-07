@@ -60,7 +60,7 @@ class Data {
   }
 
   getOne(id) {
-    const qry = `select * from tasks where rowid = ?`
+    const qry = `select rowid, * from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
     return stmt.get(id)
   }
