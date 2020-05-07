@@ -71,6 +71,12 @@ class Data {
     return stmt.all()
   }
 
+  getArchived() {
+    const qry = `select oldTaskId, desc from archivedTasks`
+    const stmt = this.db.prepare(qry)
+    return stmt.all()
+  }
+
   remove(id) {
     const qry = `delete from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)

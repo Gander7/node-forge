@@ -1,4 +1,5 @@
 const add = require('../src/cmds/add')
+const done = require('../src/cmds/done')
 const list = require('../src/cmds/list')
 const Data = require('../src/data/db')
 
@@ -35,6 +36,20 @@ describe('List Command', () => {
 
     expect(output.log.length).toEqual(1)
     expect(output.log[0]).toEqual('No outstanding tasks found.')
+  })
+
+  test('list complete tasks', () => {
+    const db = new Data()
+    add(['test', 'add', '1'], db)
+    add(['test', 'add', '2'], db)
+    add(['test', 'add', '3'], db)
+    done(1, db)
+    done(3, db)
+    list({ d: true }, db)
+
+    expect(output.log.length).toEqual(6)
+    expect(output.log[5]).toEqual(expect.stringContaining('test add 1'))
+    expect(output.log[5]).toEqual(expect.stringContaining('test add 3'))
   })
 
   test('list tasks error', () => {

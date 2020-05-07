@@ -79,7 +79,7 @@ These do not appear in any given order. They are not prioritized.
   - [x] done
   - [x] delete
   - [x] list
-  - [] list done
+  - [x] list done
   - [] read
   - [] update
   - [] restore
