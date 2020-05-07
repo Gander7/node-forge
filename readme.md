@@ -88,9 +88,9 @@ These do not appear in any given order. They are not prioritized.
 - [] Start/Stop timers
 - [] aggregate time taken on done tasks
 - [] Due dates
-- [] Ready status?
 - [] tags
 - [] Command Help Menus
+- [] Focus, only show tasks of project and/or tag
 - list (different ways of viewing tasks)
   - [] tags
   - [] active
@@ -100,6 +100,7 @@ These do not appear in any given order. They are not prioritized.
   - [] oldest
   - [] overdue
   - [] project/no project
+- [] Ready status?
 - reports (aggregate views, that don't contain the basic columns)
   - tags
   - recurring templates with next occurence
