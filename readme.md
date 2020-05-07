@@ -84,6 +84,7 @@ These do not appear in any given order. They are not prioritized.
   - [x] modify desc
   - [x] restore archived => todo
   - [x] append
+  - [x] prepend
 - [x] Better Help Menu
 - [] Start/Stop timers
 - [] aggregate time taken on done tasks

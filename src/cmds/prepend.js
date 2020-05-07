@@ -1,6 +1,6 @@
 const Data = require('../data/db')
 
-function append(id, args, mockDb) {
+function prepend(id, args, mockDb) {
   const db = mockDb ? mockDb : new Data()
 
   const task = db.getOne(id)
@@ -11,7 +11,7 @@ function append(id, args, mockDb) {
 
   const updatedTask = {
     id,
-    desc: `${task.desc} ${args.join(' ')}`,
+    desc: `${args.join(' ')} ${task.desc}`,
   }
 
   const info = db.update(updatedTask)
@@ -22,4 +22,4 @@ function append(id, args, mockDb) {
   }
 }
 
-module.exports = append
+module.exports = prepend

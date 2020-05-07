@@ -15,6 +15,7 @@ const menus = {
     ${chalk.blueBright('list|l                       ')}...... view task, default command
     ${chalk.blueBright('modify|mod|m <taskId> <text> ')}...... modifies task (overwrites)
     ${chalk.blueBright('append|app   <taskId> <text> ')}...... appends text to task
+    ${chalk.blueBright('prepend|pre  <taskId> <text> ')}...... prepends text to task
     ${chalk.blueBright('done|d       <taskId>        ')}...... archives task
     ${chalk.blueBright('restore|res  <taskId>        ')}...... restores a completed task
     ${chalk.blueBright('remove|rem   <taskId>        ')}...... permanently deletes task
