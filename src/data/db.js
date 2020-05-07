@@ -71,13 +71,6 @@ class Data {
     return stmt.get(id)
   }
 
-  getOneArchived(id) {
-    const qry = `select rowid, * from archivedTasks where rowid = ?`
-    const stmt = this.db.prepare(qry)
-    const res = stmt.get(id)
-    return stmt.get(id)
-  }
-
   getAll() {
     const qry = `select rowid, desc from tasks`
     const stmt = this.db.prepare(qry)

@@ -83,20 +83,23 @@ These do not appear in any given order. They are not prioritized.
   - [x] read
   - [x] modify desc
   - [x] restore archived => todo
-- Better Help Menu
-- Start/Stop timers
-- Due dates
-- Ready status?
-- tags
+  - [] append
+- [x] Better Help Menu
+- [] Start/Stop timers
+- [] aggregate time taken on done tasks
+- [] Due dates
+- [] Ready status?
+- [] tags
+- [] Command Help Menus
 - list (different ways of viewing tasks)
-  - tags
-  - active
-  - blocked
-  - newest
-  - next
-  - oldest
-  - overdue
-  - project/no project
+  - [] tags
+  - [] active
+  - [] blocked
+  - [] newest
+  - [] next
+  - [] oldest
+  - [] overdue
+  - [] project/no project
 - reports (aggregate views, that don't contain the basic columns)
   - tags
   - recurring templates with next occurence

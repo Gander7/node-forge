@@ -26,6 +26,7 @@ module.exports = () => {
       const viewArgs = { id: parseInt(args._[0]) }
       require('./cmds/view')(viewArgs)
       break
+    case 'm':
     case 'mod':
     case 'modify':
       const id = parseInt(args._[1])
