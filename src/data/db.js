@@ -78,7 +78,7 @@ class Data {
   }
 
   getArchived() {
-    const qry = `select oldTaskId, desc from archivedTasks`
+    const qry = `select oldTaskId, desc, archivedOn from archivedTasks`
     const stmt = this.db.prepare(qry)
     return stmt.all()
   }

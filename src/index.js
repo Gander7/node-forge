@@ -42,7 +42,10 @@ module.exports = () => {
       break
     case 'l':
     case 'list':
-      const listArgs = args._.slice(1)
+      const listArgs = {
+        ...args,
+        _: args._.slice(1),
+      }
       require('./cmds/list')(listArgs)
       break
     case 'version':
