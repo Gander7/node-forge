@@ -83,6 +83,7 @@ These do not appear in any given order. They are not prioritized.
   - [] read
   - [] update
   - [] restore
+- Better Help Menu
 - Start/Stop timers
 - Due dates
 - Ready status?
