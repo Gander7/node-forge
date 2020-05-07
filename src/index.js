@@ -29,9 +29,15 @@ module.exports = () => {
     case 'm':
     case 'mod':
     case 'modify':
-      const id = parseInt(args._[1])
+      const modId = parseInt(args._[1])
       const modArgs = args._.slice(2)
-      require('./cmds/modify')(id, modArgs)
+      require('./cmds/modify')(modId, modArgs)
+      break
+    case 'app':
+    case 'append':
+      const appendId = parseInt(args._[1])
+      const appendArgs = args._.slice(2)
+      require('./cmds/append')(appendId, appendArgs)
       break
     case 'rem':
     case 'remove':

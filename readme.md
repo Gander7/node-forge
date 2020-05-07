@@ -83,7 +83,7 @@ These do not appear in any given order. They are not prioritized.
   - [x] read
   - [x] modify desc
   - [x] restore archived => todo
-  - [] append
+  - [x] append
 - [x] Better Help Menu
 - [] Start/Stop timers
 - [] aggregate time taken on done tasks
