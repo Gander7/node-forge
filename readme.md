@@ -86,10 +86,11 @@ These do not appear in any given order. They are not prioritized.
   - [x] append
   - [x] prepend
 - [x] Better Help Menu
+- [] tags
+- [] projects
 - [] Start/Stop timers
 - [] aggregate time taken on done tasks
 - [] Due dates
-- [] tags
 - [] Command Help Menus
 - [] Focus, only show tasks of project and/or tag
 - list (different ways of viewing tasks)
@@ -112,6 +113,7 @@ These do not appear in any given order. They are not prioritized.
 - notes
 - Priority+Backlog, inspired from [Scrum]
 - Add [Shields](https://shields.io/) as we go
+  - [] Discord
 - Integration (Push/Pull) [from github issues](https://help.github.com/en/github/managing-your-work-on-github/about-issues)
 - Urgency, inspired from [Task Warrior](https://github.com/GothenburgBitFactory/taskwarrior)
 - Sprints option/skin/workflow?

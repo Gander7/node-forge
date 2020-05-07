@@ -12,7 +12,7 @@ class Data {
       dbFullPath = ':memory:'
     } else {
       if (!files.existsSync(dbPath)) {
-        files.mkdirSync(dbFullPath)
+        files.mkdirSync(dbPath)
       }
     }
 
