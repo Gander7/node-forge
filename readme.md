@@ -52,18 +52,23 @@ There are no official releases at this point, but if you want to play around:
 
 ### Simple
 
-#### Add Task
+```
+Commands
+    add|a        <text>          ...... add task
+    view         <taskId>        ...... view task
+    list|l                       ...... view task, default command
+    modify|mod|m <taskId> <text> ...... modifies task (overwrites)
+    append|app   <taskId> <text> ...... appends text to task
+    prepend|pre  <taskId> <text> ...... prepends text to task
+    done|d       <taskId>        ...... archives task
+    restore|res  <taskId>        ...... restores a completed task
+    remove|rem   <taskId>        ...... permanently deletes task
 
-`tk a this is a test task` or `tk add this is a test task`
 
-#### List Task
-
-`tk`
-
-#### Remove Task
-
-When removing, there is no one letter command option to prevent accidental deletions.
-`tk rem ID` or `tk remove ID`
+    Global Flags
+    -v|--version ...................... show current version
+    -h|--help    ...................... show usage
+```
 
 ### Documentation
 
