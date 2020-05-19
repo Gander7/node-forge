@@ -9,19 +9,27 @@ function modify(id, args, mockDb) {
   const oldTask = db.getOne(id)
 
   let tags = []
-  const desc = args
+  let tagsToRemove = []
+  const newDesc = args
     ? args
         .filter((word) => {
-          if (word[0] === '+') tags.push(word.slice(1))
-          return word[0] !== '+'
+          if (word[0] === '+' && word.length > 1) {
+            tags.push(word.slice(1))
+            return false
+          } else if (word[0] === '-' && word.length > 1) {
+            tagsToRemove.push(word.slice(1))
+            return false
+          }
+          return true
         })
         .join(' ')
     : ''
 
   const task = {
     id,
-    desc: desc ? desc : oldTask.desc,
+    desc: newDesc ? newDesc : oldTask.desc,
     tags,
+    tagsToRemove,
   }
 
   const info = db.update(task)

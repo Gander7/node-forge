@@ -92,4 +92,41 @@ describe('Modify Command', () => {
     expect(tasksBefore.length).toEqual(1)
     expect(tasksAfter).toMatchObject([{ rowid: 1, desc: 'test add 1' }])
   })
+
+  test('modify task with plus shouldnt add tag', () => {
+    const db = new Data()
+
+    add(['+tag1', 'test', 'add', '1'], db)
+    modify(1, ['test', 'add', '1', '+', '2'], db)
+
+    const tagTasks = db.getTasksByTag('tag1')
+    const plusTags = db.getTasksByTag('+')
+    const blankTags = db.getTasksByTag('')
+
+    expect(tagTasks).toMatchObject([{ rowid: 1, desc: 'test add 1 + 2' }])
+    expect(plusTags).toMatchObject([])
+    expect(blankTags).toMatchObject([])
+  })
+
+  test('update task with minus to remove tag', () => {
+    const db = new Data()
+    add(['+tag1', '+tag2', 'test', 'add', '1'], db)
+    const tag1Before = db.getTasksByTag('tag1')
+    const tag2Before = db.getTasksByTag('tag2')
+    const tagCountBefore = db.getTags(1)
+
+    modify(1, ['-tag2'], db)
+
+    const tag1After = db.getTasksByTag('tag1')
+    const tag2After = db.getTasksByTag('tag2')
+    const tagCountAfter = db.getTags(1)
+
+    expect(tag1Before.length).toEqual(1)
+    expect(tag2Before.length).toEqual(1)
+    expect(tagCountBefore.length).toEqual(2)
+
+    expect(tag1After.length).toEqual(1)
+    expect(tag2After.length).toEqual(0)
+    expect(tagCountAfter.length).toEqual(1)
+  })
 })

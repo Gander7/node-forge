@@ -88,4 +88,18 @@ describe('Add Command', () => {
     ])
     expect(tag2Tasks).toMatchObject([{ rowid: 1, desc: 'test add 1' }])
   })
+
+  test('new tasks with plus shouldnt add tag', () => {
+    const db = new Data()
+
+    add(['+tag1', 'test', 'add', '1', '+', '2'], db)
+
+    const tagTasks = db.getTasksByTag('tag1')
+    const plusTags = db.getTasksByTag('+')
+    const blankTags = db.getTasksByTag('')
+
+    expect(tagTasks).toMatchObject([{ rowid: 1, desc: 'test add 1 + 2' }])
+    expect(plusTags).toMatchObject([])
+    expect(blankTags).toMatchObject([])
+  })
 })

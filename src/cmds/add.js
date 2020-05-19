@@ -7,8 +7,11 @@ function add(args = undefined, mockDb) {
   const desc = args
     ? args
         .filter((word) => {
-          if (word[0] === '+') tags.push(word.slice(1))
-          return word[0] !== '+'
+          if (word[0] === '+' && word.length > 1) {
+            tags.push(word.slice(1))
+            return false
+          }
+          return true
         })
         .join(' ')
     : ''

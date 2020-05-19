@@ -78,6 +78,8 @@ class Data {
     let retVal
     this.db.transaction(() => {
       retVal = stmt.run(task.desc, task.id)
+      if (task.tagsToRemove)
+        task.tagsToRemove.forEach((tagName) => this.removeTag(task.id, tagName))
       if (task.tags) task.tags.forEach((tagName) => this.addTag(task.id, tagName))
     })()
 
@@ -87,7 +89,9 @@ class Data {
   getOne(id) {
     const qry = `select rowid, * from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
-    return stmt.get(id)
+    const task = stmt.get(id)
+    if (task) task.tags = this.getTags(task.id)
+    return task
   }
 
   getTasksByTag(tagName) {
@@ -119,6 +123,12 @@ class Data {
     const qry = `delete from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
     return stmt.run(id)
+  }
+
+  removeTag(id, tagName) {
+    const qry = `delete from taskTags where taskId = ? and tag = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.run(id, tagName)
   }
 
   archive(id) {
