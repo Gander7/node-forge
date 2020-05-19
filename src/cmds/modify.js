@@ -6,10 +6,22 @@ function modify(id, args, mockDb) {
     return
   }
   const db = mockDb ? mockDb : new Data()
+  const oldTask = db.getOne(id)
+
+  let tags = []
+  const desc = args
+    ? args
+        .filter((word) => {
+          if (word[0] === '+') tags.push(word.slice(1))
+          return word[0] !== '+'
+        })
+        .join(' ')
+    : ''
 
   const task = {
     id,
-    desc: args.join(' '),
+    desc: desc ? desc : oldTask.desc,
+    tags,
   }
 
   const info = db.update(task)

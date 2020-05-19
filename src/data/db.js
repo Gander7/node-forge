@@ -51,24 +51,37 @@ class Data {
     const settingsQry = `update settings set nextid = nextid + 1`
     const settingsStmt = this.db.prepare(settingsQry)
 
-    const tagsQry = `insert into taskTags (taskId, tag) values (?, ?)`
-    const tagsStmt = this.db.prepare(tagsQry)
-
     let retVal
     this.db.transaction(() => {
       retVal = stmt.run(args.desc)
       const task = this.getOne(retVal.lastInsertRowid)
-      if (args.tags) args.tags.forEach((tagName) => tagsStmt.run(task.id, tagName))
+      if (args.tags) args.tags.forEach((tagName) => this.addTag(task.id, tagName))
       settingsStmt.run()
     })()
 
     return retVal
   }
 
-  update(args) {
+  addTag(id, tag) {
+    const tagsQry = `
+      insert into taskTags (taskId, tag) 
+      select ?, ? 
+      where not exists (select 1 from taskTags where taskId = ? and tag = ?)`
+    return this.db.prepare(tagsQry).run(id, tag, id, tag)
+  }
+
+  update(task) {
     const qry = `update tasks set desc = ? where rowid = ?`
     const stmt = this.db.prepare(qry)
-    return stmt.run(args.desc, args.id)
+    stmt.run(task.desc, task.id)
+
+    let retVal
+    this.db.transaction(() => {
+      retVal = stmt.run(task.desc, task.id)
+      if (task.tags) task.tags.forEach((tagName) => this.addTag(task.id, tagName))
+    })()
+
+    return retVal
   }
 
   getOne(id) {
@@ -82,6 +95,12 @@ class Data {
     const stmt = this.db.prepare(qry)
     const res = stmt.all(tagName)
     return res
+  }
+
+  getTags(taskId) {
+    const qry = `select rowid, * from taskTags where taskId = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.all(taskId)
   }
 
   getAll() {

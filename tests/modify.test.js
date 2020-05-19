@@ -62,4 +62,34 @@ describe('Modify Command', () => {
     modify(1, ['test', 'that', 'doesnt', 'exist'], db)
     expect(output.log.length).toEqual(0)
   })
+
+  test('update tasks with tag', () => {
+    const db = new Data()
+    add(['test', 'add', '1'], db)
+    const tasksBefore = db.getTasksByTag('tag1')
+
+    modify(1, ['+tag1'], db)
+
+    const tasksAfter = db.getTasksByTag('tag1')
+    const tagCount = db.getTags(1)
+
+    expect(tagCount.length).toEqual(1)
+    expect(tasksBefore.length).toEqual(0)
+    expect(tasksAfter).toMatchObject([{ rowid: 1, desc: 'test add 1' }])
+  })
+
+  test('update tasks with duplicate tag', () => {
+    const db = new Data()
+    add(['+tag1', 'test', 'add', '1'], db)
+    const tasksBefore = db.getTasksByTag('tag1')
+
+    modify(1, ['+tag1'], db)
+
+    const tasksAfter = db.getTasksByTag('tag1')
+    const tagCount = db.getTags(1)
+
+    expect(tagCount.length).toEqual(1)
+    expect(tasksBefore.length).toEqual(1)
+    expect(tasksAfter).toMatchObject([{ rowid: 1, desc: 'test add 1' }])
+  })
 })
