@@ -119,10 +119,20 @@ class Data {
     return stmt.all()
   }
 
-  remove(id) {
+  removeTask(id, opts = { deleteTags: true }) {
+    const task = this.getOne(id)
+    if (!task) return { error: 'task not found' }
+
     const qry = `delete from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
-    return stmt.run(id)
+
+    let retVal
+    this.db.transaction(() => {
+      retVal = stmt.run(task.rowid)
+      if (opts.deleteTags) task.tags.forEach((tagName) => this.removeTag(task.id, tagName))
+    })()
+
+    return retVal
   }
 
   removeTag(id, tagName) {
@@ -141,7 +151,7 @@ class Data {
 
     const run = this.db.transaction(() => {
       archiveStmt.run(id)
-      this.remove(id)
+      this.removeTask(id, { deleteTags: false })
     })
     run()
 

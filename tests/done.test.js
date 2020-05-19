@@ -41,7 +41,7 @@ describe('Done Command', () => {
 
   test('new task error', () => {
     const db = new Data()
-    jest.spyOn(db, 'remove').mockImplementation(() => {})
+    jest.spyOn(db, 'removeTask').mockImplementation(() => {})
     jest.spyOn(db, 'insert').mockImplementation(() => {})
 
     add(['test', 'add', '1'], db)

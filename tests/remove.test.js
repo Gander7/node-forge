@@ -40,7 +40,7 @@ describe('Remove Command', () => {
 
   test('remove task error', () => {
     const db = new Data()
-    jest.spyOn(db, 'remove').mockImplementation(() => undefined)
+    jest.spyOn(db, 'removeTask').mockImplementation(() => undefined)
 
     remove(1, db)
 
