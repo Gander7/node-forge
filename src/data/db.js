@@ -4,8 +4,8 @@ const Database = require('better-sqlite3')
 const schema = require('./schema')
 
 class Data {
-  constructor(db, mockFs, mockLiveLogging) {
-    const files = mockFs ? mockFs : fs
+  constructor(opts = {}) {
+    const files = opts.fileSystem ? opts.fileSystem : fs
     let { dbPath, dbName, dbFullPath } = this.getPath()
 
     if (dbName.includes(':memory:')) {
@@ -16,9 +16,9 @@ class Data {
       }
     }
 
-    this.db = db ? db : new Database(dbFullPath)
+    this.db = opts.db ? opts.db : new Database(dbFullPath)
 
-    this.inititialize(schema, mockLiveLogging)
+    this.inititialize(schema, opts.liveLogging)
   }
 
   getPath() {
@@ -30,14 +30,14 @@ class Data {
     }
   }
 
-  inititialize(schema, mockLiveLogging) {
+  inititialize(schema, liveLogging) {
     const qry = this.db.prepare(`select 1 from sqlite_master where type='table' and name='tasks';`)
     const stmt = qry.get()
     if (stmt === undefined) {
-      if (!process.env.testing || mockLiveLogging)
+      if (!process.env.testing || liveLogging)
         console.log(chalk.yellow('WARNING: database appears empty; initializing it.'))
       this.db.exec(schema)
-      if (!process.env.testing || mockLiveLogging) console.log(chalk.green('database initialized.'))
+      if (!process.env.testing || liveLogging) console.log(chalk.green('database initialized.'))
     }
   }
 
@@ -69,6 +69,12 @@ class Data {
     const qry = `select rowid, * from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
     return stmt.get(id)
+  }
+
+  getTag(tagName) {
+    const qry = `select * from tags where tag = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.get(tagName)
   }
 
   getAll() {

@@ -29,7 +29,7 @@ describe('DB', () => {
     })
     jest.spyOn(sqlite, 'exec').mockImplementation(() => {})
 
-    new Data(sqlite, undefined, true)
+    new Data({ db: sqlite, liveLogging: true })
 
     expect(output.log.length).toEqual(2)
     expect(output.log).toContainEqual(expect.stringContaining('WARNING'))
@@ -50,7 +50,7 @@ describe('DB', () => {
       }
     })
 
-    new Data(new Database(), fs, true)
+    new Data({ db: new Database(), fileSystem: fs, liveLogging: true })
 
     expect(output.log.length).toEqual(2)
     expect(output.log).toContainEqual(expect.stringContaining('WARNING'))
@@ -71,7 +71,7 @@ describe('DB', () => {
       }
     })
 
-    new Data(undefined, undefined, true)
+    new Data({ liveLogging: true })
 
     expect(output.log.length).toEqual(0)
 
@@ -86,14 +86,14 @@ describe('DB', () => {
       }
     })
 
-    new Data(db)
+    new Data({ db })
 
     expect(output.log.length).toEqual(0)
     expect(output.error.length).toEqual(0)
   })
 
   test('creation messages output only when database created', () => {
-    const db = new Data(new Database(':memory:'), undefined, true)
+    const db = new Data({ db: new Database(':memory:'), liveLogging: true })
 
     add(['test 1'], db)
     add(['test 2'], db)
