@@ -76,7 +76,8 @@ Commands
 
 ## Roadmap
 
-These do not appear in any given order. They are not prioritized.
+These do not appear in any given order.
+They are not prioritized but the next thing on the list is what I'm working on.
 
 - Basic Task Crud
   - [x] Create
