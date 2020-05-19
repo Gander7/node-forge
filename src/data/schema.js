@@ -8,6 +8,12 @@ const schema = `
     desc text
   );
 
+  create table taskTags (
+    taskId integer,
+    tag text
+  );
+
+
   create table archivedTasks (
     desc text,
     archivedOn text,

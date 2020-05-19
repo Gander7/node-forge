@@ -1,4 +1,5 @@
 const add = require('../src/cmds/add')
+const view = require('../src/cmds/view')
 const Data = require('../src/data/db')
 
 const output = {
@@ -18,10 +19,13 @@ beforeEach(() => {
 
 describe('Add Command', () => {
   test('new task is returned', () => {
-    add(['test', 'add', '1'])
+    const db = new Data()
 
-    expect(output.log.length).toEqual(1)
-    expect(output.log).toContainEqual(expect.stringContaining('Task 1 inserted.'))
+    add(['test', 'add', '1'], db)
+    const task = db.getOne(1)
+
+    expect(task).not.toBeNull()
+    expect(task.desc).toEqual('test add 1')
   })
 
   test('new task error', () => {
@@ -31,5 +35,19 @@ describe('Add Command', () => {
     add(['test', 'add', '1'], db)
 
     expect(output.log.length).toEqual(0)
+  })
+
+  test('new task with tag at start', () => {
+    const db = new Data()
+
+    add(['+tag1', 'test', 'add', '1'], db)
+    const tasks = db.getTasksByTag('tag1')
+
+    expect(tasks).toMatchObject([
+      {
+        rowid: 1,
+        desc: 'test add 1',
+      },
+    ])
   })
 })

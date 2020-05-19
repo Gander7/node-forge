@@ -44,15 +44,21 @@ class Data {
   insert(args) {
     const qry = `
         insert into tasks (id, desc)
-        values ((select max(nextid) + 1 from settings), :desc);
+        values ((select max(nextid) + 1 from settings), ?);
       `
     const stmt = this.db.prepare(qry)
+
     const settingsQry = `update settings set nextid = nextid + 1`
     const settingsStmt = this.db.prepare(settingsQry)
 
+    const tagsQry = `insert into taskTags (taskId, tag) values (?, ?)`
+    const tagsStmt = this.db.prepare(tagsQry)
+
     let retVal
     this.db.transaction(() => {
-      retVal = stmt.run(args)
+      retVal = stmt.run(args.desc)
+      const task = this.getOne(retVal.lastInsertRowid)
+      if (args.tags) args.tags.forEach((tagName) => tagsStmt.run(task.id, tagName))
       settingsStmt.run()
     })()
 
@@ -71,10 +77,11 @@ class Data {
     return stmt.get(id)
   }
 
-  getTag(tagName) {
-    const qry = `select * from tags where tag = ?`
+  getTasksByTag(tagName) {
+    const qry = `select rowid, * from tasks where id in (select taskId from taskTags where tag = ?)`
     const stmt = this.db.prepare(qry)
-    return stmt.get(tagName)
+    const res = stmt.all(tagName)
+    return res
   }
 
   getAll() {
