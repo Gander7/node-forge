@@ -32,22 +32,24 @@ describe('Modify Command', () => {
   })
 
   test('no mods provided', () => {
-    const db = new Data()
-    add(['test', 'add', '1'], db)
-    modify(1, [], db)
+    modify(1, [])
 
-    expect(output.log.length).toEqual(1)
+    expect(output.log.length).toEqual(0)
     expect(output.error.length).toEqual(1)
   })
 
   test('null mods provided', () => {
-    const db = new Data()
-    add(['test', 'add', '1'], db)
-    modify(1, null, db)
-    modify(1, undefined, db)
+    modify(1, null)
 
-    expect(output.log.length).toEqual(1)
-    expect(output.error.length).toEqual(2)
+    expect(output.log.length).toEqual(0)
+    expect(output.error.length).toEqual(1)
+  })
+
+  test('undefined mods provided', () => {
+    modify(1, undefined)
+
+    expect(output.log.length).toEqual(0)
+    expect(output.error.length).toEqual(1)
   })
 
   test('task not found', () => {
@@ -120,7 +122,6 @@ describe('Modify Command', () => {
     const tag1After = db.getTasksByTag('tag1')
     const tag2After = db.getTasksByTag('tag2')
     const tagCountAfter = db.getTags(1)
-
     expect(tag1Before.length).toEqual(1)
     expect(tag2Before.length).toEqual(1)
     expect(tagCountBefore.length).toEqual(2)

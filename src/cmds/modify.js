@@ -1,6 +1,6 @@
 const Data = require('../data/db')
 
-function modify(id, args, mockDb) {
+function modify(id, args = [], mockDb) {
   if (!args || args.length === 0) {
     console.error('modify failed. no modifications provided.')
     return
@@ -10,20 +10,19 @@ function modify(id, args, mockDb) {
 
   let tags = []
   let tagsToRemove = []
+
   const newDesc = args
-    ? args
-        .filter((word) => {
-          if (word[0] === '+' && word.length > 1) {
-            tags.push(word.slice(1))
-            return false
-          } else if (word[0] === '-' && word.length > 1) {
-            tagsToRemove.push(word.slice(1))
-            return false
-          }
-          return true
-        })
-        .join(' ')
-    : ''
+    .filter((word) => {
+      if (word[0] === '+' && word.length > 1) {
+        tags.push(word.slice(1))
+        return false
+      } else if (word[0] === '-' && word.length > 1) {
+        tagsToRemove.push(word.slice(1))
+        return false
+      }
+      return true
+    })
+    .join(' ')
 
   const task = {
     id,

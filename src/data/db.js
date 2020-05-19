@@ -55,7 +55,7 @@ class Data {
     this.db.transaction(() => {
       retVal = stmt.run(args.desc)
       const task = this.getOne(retVal.lastInsertRowid)
-      if (args.tags) args.tags.forEach((tagName) => this.addTag(task.id, tagName))
+      args.tags.forEach((tagName) => this.addTag(task.id, tagName))
       settingsStmt.run()
     })()
 

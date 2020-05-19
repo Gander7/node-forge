@@ -36,11 +36,23 @@ describe('Add Command', () => {
 
   test('null task provided', () => {
     add(null)
+
+    expect(output.log.length).toEqual(0)
+    expect(output.error.length).toEqual(1)
+  })
+
+  test('undefined task provided', () => {
     add(undefined)
+
+    expect(output.log.length).toEqual(0)
+    expect(output.error.length).toEqual(1)
+  })
+
+  test('empty task provided', () => {
     add()
 
     expect(output.log.length).toEqual(0)
-    expect(output.error.length).toEqual(3)
+    expect(output.error.length).toEqual(1)
   })
 
   test('new task db error', () => {
@@ -48,6 +60,13 @@ describe('Add Command', () => {
     jest.spyOn(db, 'insert').mockImplementation(() => {})
 
     add(['test', 'add', '1'], db)
+
+    expect(output.log.length).toEqual(0)
+    expect(output.error.length).toEqual(1)
+  })
+
+  test('new task with only tags should fail', () => {
+    add(['+tag1', '+tag2'])
 
     expect(output.log.length).toEqual(0)
     expect(output.error.length).toEqual(1)

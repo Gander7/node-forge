@@ -1,20 +1,23 @@
 const Data = require('../data/db')
 
-function add(args = undefined, mockDb) {
+function add(args = [], mockDb) {
+  if (!args || args.length === 0) {
+    console.error('modify failed. no modifications provided.')
+    return
+  }
+
   const db = mockDb ? mockDb : new Data()
 
   let tags = []
   const desc = args
-    ? args
-        .filter((word) => {
-          if (word[0] === '+' && word.length > 1) {
-            tags.push(word.slice(1))
-            return false
-          }
-          return true
-        })
-        .join(' ')
-    : ''
+    .filter((word) => {
+      if (word[0] === '+' && word.length > 1) {
+        tags.push(word.slice(1))
+        return false
+      }
+      return true
+    })
+    .join(' ')
 
   if (!desc) {
     console.error('add failed. no task provided.')
