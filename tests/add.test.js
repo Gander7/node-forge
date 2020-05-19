@@ -1,5 +1,4 @@
 const add = require('../src/cmds/add')
-const view = require('../src/cmds/view')
 const Data = require('../src/data/db')
 
 const output = {
@@ -37,17 +36,39 @@ describe('Add Command', () => {
     expect(output.log.length).toEqual(0)
   })
 
-  test('new task with tag at start', () => {
+  test('new tasks with tags', () => {
     const db = new Data()
 
     add(['+tag1', 'test', 'add', '1'], db)
-    const tasks = db.getTasksByTag('tag1')
+    add(['test', 'add', '2', '+tag1'], db)
+    add(['test', '+tag1', 'add', '3'], db)
+    add(['+tag2', 'test', 'add', '4'], db)
+    add(['test', 'add', '5'], db)
 
-    expect(tasks).toMatchObject([
-      {
-        rowid: 1,
-        desc: 'test add 1',
-      },
+    const tag1Tasks = db.getTasksByTag('tag1')
+    const tag2Tasks = db.getTasksByTag('tag2')
+
+    expect(tag1Tasks).toMatchObject([
+      { rowid: 1, desc: 'test add 1' },
+      { rowid: 2, desc: 'test add 2' },
+      { rowid: 3, desc: 'test add 3' },
     ])
+    expect(tag2Tasks).toMatchObject([{ rowid: 4, desc: 'test add 4' }])
+  })
+
+  test('new tasks with multiple tags', () => {
+    const db = new Data()
+
+    add(['+tag1', '+tag2', 'test', 'add', '1'], db)
+    add(['test', 'add', '2', '+tag1'], db)
+
+    const tag1Tasks = db.getTasksByTag('tag1')
+    const tag2Tasks = db.getTasksByTag('tag2')
+
+    expect(tag1Tasks).toMatchObject([
+      { rowid: 1, desc: 'test add 1' },
+      { rowid: 2, desc: 'test add 2' },
+    ])
+    expect(tag2Tasks).toMatchObject([{ rowid: 1, desc: 'test add 1' }])
   })
 })
