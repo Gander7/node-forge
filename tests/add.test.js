@@ -35,10 +35,12 @@ describe('Add Command', () => {
   })
 
   test('null task provided', () => {
+    add(null)
+    add(undefined)
     add()
 
     expect(output.log.length).toEqual(0)
-    expect(output.error.length).toEqual(1)
+    expect(output.error.length).toEqual(3)
   })
 
   test('new task db error', () => {

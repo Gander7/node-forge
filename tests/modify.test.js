@@ -31,13 +31,32 @@ describe('Modify Command', () => {
     expect(output.log[3]).toEqual(expect.stringContaining('test modify'))
   })
 
+  test('no mods provided', () => {
+    const db = new Data()
+    add(['test', 'add', '1'], db)
+    modify(1, [], db)
+
+    expect(output.log.length).toEqual(1)
+    expect(output.error.length).toEqual(1)
+  })
+
+  test('null mods provided', () => {
+    const db = new Data()
+    add(['test', 'add', '1'], db)
+    modify(1, null, db)
+    modify(1, undefined, db)
+
+    expect(output.log.length).toEqual(1)
+    expect(output.error.length).toEqual(2)
+  })
+
   test('task not found', () => {
     modify(1, ['test', 'that', 'doesnt', 'exist'])
     expect(output.log.length).toEqual(1)
     expect(output.log[0]).toEqual(expect.stringContaining('Task not found.'))
   })
 
-  test('update fails', () => {
+  test('db update error', () => {
     const db = new Data()
     jest.spyOn(db, 'update').mockImplementation(() => undefined)
     modify(1, ['test', 'that', 'doesnt', 'exist'], db)

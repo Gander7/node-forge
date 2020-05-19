@@ -1,15 +1,17 @@
 const Data = require('../data/db')
 
-function add(args = [], mockDb) {
+function add(args = undefined, mockDb) {
   const db = mockDb ? mockDb : new Data()
 
   let tags = []
   const desc = args
-    .filter((word) => {
-      if (word[0] === '+') tags.push(word.slice(1))
-      return word[0] !== '+'
-    })
-    .join(' ')
+    ? args
+        .filter((word) => {
+          if (word[0] === '+') tags.push(word.slice(1))
+          return word[0] !== '+'
+        })
+        .join(' ')
+    : ''
 
   if (!desc) {
     console.error('add failed. no task provided.')
