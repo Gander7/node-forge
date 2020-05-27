@@ -14,7 +14,7 @@ function prepend(id, args, mockDb) {
     desc: `${args.join(' ')} ${task.desc}`,
   }
 
-  const info = db.update(updatedTask)
+  const info = db.updateTask(updatedTask)
 
   if (info) {
     if (info.changes > 0) console.log(`Task ${id} updated.`)

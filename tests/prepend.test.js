@@ -49,7 +49,7 @@ describe('Prepend Command', () => {
 
   test('update fails', () => {
     const db = new Data()
-    jest.spyOn(db, 'update').mockImplementation(() => undefined)
+    jest.spyOn(db, 'updateTask').mockImplementation(() => undefined)
     jest.spyOn(db, 'getOne').mockImplementation(() => {
       return { desc: '' }
     })

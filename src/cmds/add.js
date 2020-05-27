@@ -9,10 +9,15 @@ function add(args = [], mockDb) {
   const db = mockDb ? mockDb : new Data()
 
   let tags = []
+  let project = ''
   const desc = args
     .filter((word) => {
+      word = typeof word !== 'string' ? word.toString() : word
       if (word[0] === '+' && word.length > 1) {
         tags.push(word.slice(1))
+        return false
+      } else if (word.startsWith('prj:') || word.startsWith('project:')) {
+        project = project === '' ? word.slice(word.indexOf(':') + 1) : project
         return false
       }
       return true
@@ -27,6 +32,7 @@ function add(args = [], mockDb) {
   const newTask = {
     desc,
     tags,
+    project,
   }
 
   const info = db.insert(newTask)

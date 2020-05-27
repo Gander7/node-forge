@@ -96,12 +96,15 @@ They are not prioritized but the next thing on the list is what I'm working on.
   - [x] add tag with add or modify
   - [x] remove tag with modify
   - [x] list tags used with # of current tasks
-- [] projects
-  - [] add prj:projectName
-  - [] prjs (list)
-  - [] prj:home + garden, don't allow spaces? or convert? determine end?
-- [] pretty output
+- [x] fix bug when add/mod tasks with non-string values
+- [x] projects
+  - [x] add prj:projectName
+  - [x] remove prj with mod (tk mod # prj:)
+  - [x] list projects with # of current
+  - [x] list projects with # complete
 - [] Start/Stop timers
+- [] Move Aggregate information out of db (getProjectList)
+- [] pretty output
 - [] aggregate time taken on done tasks
 - [] Due dates
 - [] Command Help Menus

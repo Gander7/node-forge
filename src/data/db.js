@@ -56,6 +56,7 @@ class Data {
       retVal = stmt.run(args.desc)
       const task = this.getOne(retVal.lastInsertRowid)
       args.tags.forEach((tagName) => this.addTag(task.id, tagName))
+      if (args.project) this.addProject(task.id, args.project)
       settingsStmt.run()
     })()
 
@@ -70,7 +71,15 @@ class Data {
     return this.db.prepare(tagsQry).run(id, tag, id, tag)
   }
 
-  update(task) {
+  addProject(id, project) {
+    const qry = `
+      insert into projects (taskId, project) 
+      select ?, ? 
+      where not exists (select 1 from projects where taskId = ? and project = ?)`
+    return this.db.prepare(qry).run(id, project, id, project)
+  }
+
+  updateTask(task) {
     const qry = `update tasks set desc = ? where rowid = ?`
     const stmt = this.db.prepare(qry)
     stmt.run(task.desc, task.id)
@@ -81,6 +90,10 @@ class Data {
       if (task.tagsToRemove)
         task.tagsToRemove.forEach((tagName) => this.removeTag(task.id, tagName))
       if (task.tags) task.tags.forEach((tagName) => this.addTag(task.id, tagName))
+      if (task.projectToRemove !== '') this.removeProject(task.id, task.projectToRemove)
+      if (task.project !== '') {
+        this.addProject(task.id, task.project)
+      }
     })()
 
     return retVal
@@ -90,7 +103,10 @@ class Data {
     const qry = `select rowid, * from tasks where rowid = ?`
     const stmt = this.db.prepare(qry)
     const task = stmt.get(id)
-    if (task) task.tags = this.getTags(task.id)
+    if (task) {
+      task.tags = this.getTags(task.id)
+      task.project = this.getProject(task.id)
+    }
     return task
   }
 
@@ -107,12 +123,55 @@ class Data {
     return stmt.all(taskId)
   }
 
+  getProject(taskId) {
+    const qry = `select project from projects where taskId = ?`
+    const res = this.db.prepare(qry).get(taskId)
+    return res ? res.project : ''
+  }
+
   getTagList() {
     const qry = `
       select distinct tag, count(*) 
       from taskTags where taskId in (select distinct taskId from tasks) 
       group by tag`
     return this.db.prepare(qry).all()
+  }
+
+  getProjectList() {
+    const projectQry = `select distinct project from projects`
+    const projects = this.db.prepare(projectQry).all()
+
+    const todoQry = `
+      select distinct project, count(*) as count
+      from projects where taskId in (select distinct taskId from tasks)
+        and taskId not in (select distinct oldTaskId from archivedTasks)
+      group by project
+    `
+    const todo = this.db.prepare(todoQry).all()
+
+    const doneQry = `
+      select distinct project, count(*) as count
+      from projects where taskId in (select distinct oldTaskId from archivedTasks)
+      group by project
+    `
+    const done = this.db.prepare(doneQry).all()
+
+    const res = projects.map((prj) => {
+      const doneCount = done.find((task) => task.project === prj.project)
+      prj.done = doneCount ? doneCount.count : 0
+      const todoCount = todo.find((task) => task.project === prj.project)
+      prj.todo = todoCount ? todoCount.count : 0
+      prj.total = prj.done + prj.todo
+      prj.vs = `${prj.done}/${prj.total}`
+      prj.percentage = Math.floor((prj.done / prj.total) * 100)
+      return prj
+    })
+
+    return res.sort((a, b) => (a.percentage > b.percentage ? 1 : -1))
+  }
+  getTasksByProject(projectName) {
+    const qry = `select rowid, * from tasks where id in (select taskId from projects where project = ?)`
+    return this.db.prepare(qry).all(projectName)
   }
 
   getAll() {
@@ -147,6 +206,12 @@ class Data {
     const qry = `delete from taskTags where taskId = ? and tag = ?`
     const stmt = this.db.prepare(qry)
     return stmt.run(id, tagName)
+  }
+
+  removeProject(id, project) {
+    const qry = `delete from projects where taskId = ? and project = ?`
+    const stmt = this.db.prepare(qry)
+    return stmt.run(id, project)
   }
 
   archive(id) {

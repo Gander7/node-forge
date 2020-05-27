@@ -14,7 +14,7 @@ function append(id, args, mockDb) {
     desc: `${task.desc} ${args.join(' ')}`,
   }
 
-  const info = db.update(updatedTask)
+  const info = db.updateTask(updatedTask)
 
   if (info) {
     if (info.changes > 0) console.log(`Task ${id} updated.`)

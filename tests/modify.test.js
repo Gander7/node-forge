@@ -60,7 +60,7 @@ describe('Modify Command', () => {
 
   test('db update error', () => {
     const db = new Data()
-    jest.spyOn(db, 'update').mockImplementation(() => undefined)
+    jest.spyOn(db, 'updateTask').mockImplementation(() => undefined)
     modify(1, ['test', 'that', 'doesnt', 'exist'], db)
     expect(output.log.length).toEqual(0)
   })
@@ -129,5 +129,27 @@ describe('Modify Command', () => {
     expect(tag1After.length).toEqual(1)
     expect(tag2After.length).toEqual(0)
     expect(tagCountAfter.length).toEqual(1)
+  })
+
+  test('project can be changed', () => {
+    const db = new Data()
+
+    add(['project:project1', 'test', 'add', '1'], db)
+    modify(1, ['project:project', 'test', 'add', '1', 'modified'], db)
+    const projectTasks = db.getTasksByProject('project')
+    const project1Tasks = db.getTasksByProject('project1')
+
+    expect(project1Tasks.length).toBe(0)
+    expect(projectTasks.length).toBe(1)
+  })
+
+  test('project can be removed', () => {
+    const db = new Data()
+
+    add(['project:project1', 'test', 'add', '1'], db)
+    modify(1, ['project:', 'test', 'add', '1', 'modified'], db)
+    const project1Tasks = db.getTasksByProject('project1')
+
+    expect(project1Tasks.length).toBe(0)
   })
 })

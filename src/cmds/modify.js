@@ -10,14 +10,21 @@ function modify(id, args = [], mockDb) {
 
   let tags = []
   let tagsToRemove = []
+  let project = ''
+  let projectToRemove = ''
 
   const newDesc = args
     .filter((word) => {
+      word = typeof word !== 'string' ? word.toString() : word
       if (word[0] === '+' && word.length > 1) {
         tags.push(word.slice(1))
         return false
       } else if (word[0] === '-' && word.length > 1) {
         tagsToRemove.push(word.slice(1))
+        return false
+      } else if (word.startsWith('prj:') || word.startsWith('project:')) {
+        if (oldTask.project !== '') projectToRemove = oldTask.project
+        project = project === '' ? word.slice(word.indexOf(':') + 1) : project
         return false
       }
       return true
@@ -29,9 +36,11 @@ function modify(id, args = [], mockDb) {
     desc: newDesc ? newDesc : oldTask.desc,
     tags,
     tagsToRemove,
+    project,
+    projectToRemove,
   }
 
-  const info = db.update(task)
+  const info = db.updateTask(task)
 
   if (info) {
     if (info.changes > 0) console.log(`Task ${id} updated.`)

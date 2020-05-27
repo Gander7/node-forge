@@ -22,7 +22,7 @@ const schema = `
 
   create table projects (
     taskId integer,
-    name text
+    project text
   );
 
   create table timelog (

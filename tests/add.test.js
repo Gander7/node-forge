@@ -27,6 +27,28 @@ describe('Add Command', () => {
     expect(task.desc).toEqual('test add 1')
   })
 
+  test('new task with numbers', () => {
+    // minimist returns datatypes as it determines
+    const db = new Data()
+
+    add(['test', 'add', 1], db)
+    const task = db.getOne(1)
+
+    expect(task).not.toBeNull()
+    expect(task.desc).toEqual('test add 1')
+  })
+
+  test('new task with boolean', () => {
+    // minimist returns datatypes as it determines
+    const db = new Data()
+
+    add(['test', 'add', true], db)
+    const task = db.getOne(1)
+
+    expect(task).not.toBeNull()
+    expect(task.desc).toEqual('test add true')
+  })
+
   test('no task provided', () => {
     add([])
 
@@ -120,5 +142,42 @@ describe('Add Command', () => {
     expect(tagTasks).toMatchObject([{ rowid: 1, desc: 'test add 1 + 2' }])
     expect(plusTags).toMatchObject([])
     expect(blankTags).toMatchObject([])
+  })
+
+  test('new task with project', () => {
+    const db = new Data()
+
+    add(['prj:project1', 'test', 'add', '1'], db)
+    add(['test', 'add', '2', 'prj:project1'], db)
+    add(['test', 'add', '5'], db)
+    add(['project:project1', 'test', 'add', '3'], db)
+    add(['test', 'add', '6'], db)
+    add(['test', 'add', '4', 'project:project1'], db)
+
+    const project1Tasks = db.getTasksByProject('project1')
+
+    expect(project1Tasks.length).toBe(4)
+  })
+
+  test('new task with multiple projects should only grab first one', () => {
+    const db = new Data()
+
+    add(['prj:project1', 'test', 'add', '1', 'project:project3'], db)
+
+    const project1Tasks = db.getTasksByProject('project1')
+    const project3Tasks = db.getTasksByProject('project3')
+
+    expect(project1Tasks.length).toBe(1)
+    expect(project3Tasks.length).toBe(0)
+  })
+
+  test('new task with empty project', () => {
+    const db = new Data()
+
+    add(['project:', 'test', 'add', '1'], db)
+
+    const projectTasks = db.getTasksByTag('')
+
+    expect(projectTasks.length).toBe(0)
   })
 })
