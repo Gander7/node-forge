@@ -60,4 +60,16 @@ describe('List Command', () => {
 
     expect(output.log.length).toEqual(0)
   })
+
+  test('list tags', () => {
+    const db = new Data()
+    add(['test', 'add', '1', '+tag1'], db)
+    add(['test', 'add', '2', '+tag1'], db)
+    add(['test', 'add', '3', '+tag2'], db)
+    list({ _: ['tags'] }, db)
+
+    expect(output.log.length).toEqual(4)
+    expect(output.log[3]).toEqual(expect.stringContaining('tag1'))
+    expect(output.log[3]).toEqual(expect.stringContaining('tag2'))
+  })
 })

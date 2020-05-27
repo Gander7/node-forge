@@ -92,15 +92,23 @@ They are not prioritized but the next thing on the list is what I'm working on.
   - [x] append
   - [x] prepend
 - [x] Better Help Menu
-- [] tags
+- [x] tags
+  - [x] add tag with add or modify
+  - [x] remove tag with modify
+  - [x] list tags used with # of current tasks
 - [] projects
+  - [] add prj:projectName
+  - [] prjs (list)
+  - [] prj:home + garden, don't allow spaces? or convert? determine end?
+- [] pretty output
 - [] Start/Stop timers
 - [] aggregate time taken on done tasks
 - [] Due dates
 - [] Command Help Menus
 - [] Focus, only show tasks of project and/or tag
 - list (different ways of viewing tasks)
-  - [] tags
+  - [] +tag1 -tag2
+  - [] prj:projectName
   - [] active
   - [] blocked
   - [] newest
@@ -108,6 +116,8 @@ They are not prioritized but the next thing on the list is what I'm working on.
   - [] oldest
   - [] overdue
   - [] project/no project
+- [] bulk edit
+  - [] prj:oldName mod prj:newName
 - [] Ready status?
 - reports (aggregate views, that don't contain the basic columns)
   - tags

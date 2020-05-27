@@ -107,6 +107,14 @@ class Data {
     return stmt.all(taskId)
   }
 
+  getTagList() {
+    const qry = `
+      select distinct tag, count(*) 
+      from taskTags where taskId in (select distinct taskId from tasks) 
+      group by tag`
+    return this.db.prepare(qry).all()
+  }
+
   getAll() {
     const qry = `select rowid, desc from tasks`
     const stmt = this.db.prepare(qry)

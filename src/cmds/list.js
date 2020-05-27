@@ -7,7 +7,11 @@ module.exports = (args = {}, mockDb) => {
   if (args.d || args.done) {
     data = db.getArchived()
   } else {
-    data = db.getAll()
+    if (args._ && args._[0] == 'tags') {
+      data = db.getTagList()
+    } else {
+      data = db.getAll()
+    }
   }
 
   if (data && data.length > 0) console.log(asTable(data))

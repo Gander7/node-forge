@@ -32,7 +32,7 @@ function add(args = [], mockDb) {
   const info = db.insert(newTask)
 
   if (info) console.log(`Task ${info.lastInsertRowid} inserted.`)
-  else console.error('add failed. TODO:ERROR LOG FOR REPORTING')
+  else console.error('add failed.')
 }
 
 module.exports = add
