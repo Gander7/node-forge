@@ -44,4 +44,9 @@ describe('Stop Command', () => {
     stop(1, db)
     expect(output.log.length).toEqual(0)
   })
+
+  test('task not found', () => {
+    stop(1)
+    expect(output.log.length).toEqual(1)
+  })
 })

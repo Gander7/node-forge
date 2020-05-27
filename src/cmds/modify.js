@@ -23,8 +23,9 @@ function modify(id, args = [], mockDb) {
         tagsToRemove.push(word.slice(1))
         return false
       } else if (word.startsWith('prj:') || word.startsWith('project:')) {
-        if (oldTask.project !== '') projectToRemove = oldTask.project
-        project = project === '' ? word.slice(word.indexOf(':') + 1) : project
+        const parsedProject = word.slice(word.indexOf(':') + 1)
+        projectToRemove = oldTask.project !== '' ? oldTask.project : ''
+        project = project === '' ? parsedProject : project
         return false
       }
       return true

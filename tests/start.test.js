@@ -38,4 +38,9 @@ describe('Start Command', () => {
     start(1, db)
     expect(output.log.length).toEqual(0)
   })
+
+  test('task not found', () => {
+    start(1)
+    expect(output.log.length).toEqual(1)
+  })
 })

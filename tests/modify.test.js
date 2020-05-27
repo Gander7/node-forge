@@ -31,6 +31,28 @@ describe('Modify Command', () => {
     expect(output.log[3]).toEqual(expect.stringContaining('test modify'))
   })
 
+  test('task with numbers', () => {
+    const db = new Data()
+
+    add(['test', 'add'], db)
+    modify(1, ['task', 1], db)
+    const task = db.getOne(1)
+
+    expect(task).not.toBeNull()
+    expect(task.desc).toEqual('task 1')
+  })
+
+  test('task with boolean', () => {
+    const db = new Data()
+
+    add(['test', 'add'], db)
+    modify(1, ['task', true, false], db)
+    const task = db.getOne(1)
+
+    expect(task).not.toBeNull()
+    expect(task.desc).toEqual('task true false')
+  })
+
   test('no mods provided', () => {
     modify(1, [])
 
@@ -135,11 +157,20 @@ describe('Modify Command', () => {
     const db = new Data()
 
     add(['project:project1', 'test', 'add', '1'], db)
-    modify(1, ['project:project', 'test', 'add', '1', 'modified'], db)
+    modify(1, ['prj:project', 'test', 'add', '1', 'modified', 'prj:projectNOtTobeadded'], db)
     const projectTasks = db.getTasksByProject('project')
     const project1Tasks = db.getTasksByProject('project1')
 
     expect(project1Tasks.length).toBe(0)
+    expect(projectTasks.length).toBe(1)
+  })
+
+  test('project can be added', () => {
+    const db = new Data()
+
+    add(['test', 'add', '1'], db)
+    modify(1, ['prj:project', 'test', 'add', '1', 'modified'], db)
+    const projectTasks = db.getTasksByProject('project')
     expect(projectTasks.length).toBe(1)
   })
 
