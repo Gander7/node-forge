@@ -19,6 +19,8 @@ const menus = {
     ${chalk.blueBright('done|d       <taskId>        ')}...... archives task
     ${chalk.blueBright('restore|res  <taskId>        ')}...... restores a completed task
     ${chalk.blueBright('remove|rem   <taskId>        ')}...... permanently deletes task
+    ${chalk.blueBright('start        <taskId>        ')}...... Starts a timer on the task
+    ${chalk.blueBright('stop         <taskId>        ')}...... Stops the timer on a task
 
 
     ${chalk.underline.magenta('Global Flags')}

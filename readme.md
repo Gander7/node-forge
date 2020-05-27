@@ -63,6 +63,8 @@ Commands
     done|d       <taskId>        ...... archives task
     restore|res  <taskId>        ...... restores a completed task
     remove|rem   <taskId>        ...... permanently deletes task
+    start        <taskId>        ...... Starts a timer on the task
+    stop         <taskId>        ...... Stops the timer on the task
 
 
     Global Flags
@@ -102,9 +104,17 @@ They are not prioritized but the next thing on the list is what I'm working on.
   - [x] remove prj with mod (tk mod # prj:)
   - [x] list projects with # of current
   - [x] list projects with # complete
-- [] Start/Stop timers
+- [x] Start/Stop timers
+  - [x] start
+  - [x] stop
+  - [x] update help
 - [] Move Aggregate information out of db (getProjectList)
+- [] list time spent per task on todo, done, project?, tags?
 - [] pretty output
+- [] priority
+  - Started
+  - Special +Next tag
+  - Rest
 - [] aggregate time taken on done tasks
 - [] Due dates
 - [] Command Help Menus

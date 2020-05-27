@@ -129,6 +129,11 @@ class Data {
     return res ? res.project : ''
   }
 
+  getTimeLogByTask(taskId) {
+    const qry = `select startTime, endTime from timelog where taskId = ?`
+    return this.db.prepare(qry).all(taskId)
+  }
+
   getTagList() {
     const qry = `
       select distinct tag, count(*) 
@@ -249,6 +254,17 @@ class Data {
     })()
 
     return retVal
+  }
+
+  startTask(id) {
+    const qry = `insert into timelog (taskId, startTime) select id, ? from tasks where rowid = ?
+      and not exists (select 1 from timelog where taskId = ? and endTime is null)`
+    return this.db.prepare(qry).run(new Date().toISOString(), id, id)
+  }
+
+  stopTask(id) {
+    const qry = `update timelog set endTime = ? where taskId = ? and endTime is null`
+    return this.db.prepare(qry).run(new Date().toISOString(), id)
   }
 }
 
