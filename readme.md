@@ -108,7 +108,7 @@ They are not prioritized but the next thing on the list is what I'm working on.
   - [x] start
   - [x] stop
   - [x] update help
-- [] Move Aggregate information out of db (getProjectList)
+- [x] Move Aggregate information out of db (getProjectList)
 - [] list time spent per task on todo, done, project?, tags?
 - [] pretty output
 - [] priority

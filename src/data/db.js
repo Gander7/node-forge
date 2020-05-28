@@ -142,37 +142,27 @@ class Data {
     return this.db.prepare(qry).all()
   }
 
-  getProjectList() {
-    const projectQry = `select distinct project from projects`
-    const projects = this.db.prepare(projectQry).all()
-
+  getProjectsByOutstanding() {
     const todoQry = `
       select distinct project, count(*) as count
       from projects where taskId in (select distinct taskId from tasks)
         and taskId not in (select distinct oldTaskId from archivedTasks)
       group by project
     `
-    const todo = this.db.prepare(todoQry).all()
+    return this.db.prepare(todoQry).all()
+  }
 
+  getProjectsByCompleted() {
     const doneQry = `
       select distinct project, count(*) as count
       from projects where taskId in (select distinct oldTaskId from archivedTasks)
       group by project
     `
-    const done = this.db.prepare(doneQry).all()
-
-    const res = projects.map((prj) => {
-      const doneCount = done.find((task) => task.project === prj.project)
-      prj.done = doneCount ? doneCount.count : 0
-      const todoCount = todo.find((task) => task.project === prj.project)
-      prj.todo = todoCount ? todoCount.count : 0
-      prj.total = prj.done + prj.todo
-      prj.vs = `${prj.done}/${prj.total}`
-      prj.percentage = Math.floor((prj.done / prj.total) * 100)
-      return prj
-    })
-
-    return res.sort((a, b) => (a.percentage > b.percentage ? 1 : -1))
+    return this.db.prepare(doneQry).all()
+  }
+  getProjects() {
+    const projectQry = `select distinct project from projects`
+    return this.db.prepare(projectQry).all()
   }
   getTasksByProject(projectName) {
     const qry = `select rowid, * from tasks where id in (select taskId from projects where project = ?)`
